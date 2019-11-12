@@ -1,0 +1,1 @@
+1. Replace `sampleData` inside the [resources route](routes/resources.js) with an actual database connection.
