@@ -20,7 +20,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy({usernameField: 'username', passwordField: 'password'}, (username, password, done) => {
-  console.log(username, password);
   if (username === 'tlacy1000') {
     // Authentication succeeded, pass user to the callback
     return done(null, exampleUser);

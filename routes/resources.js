@@ -21,7 +21,6 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
   res.send('successfully logged in!');
-  console.log(req.user);
 });
 
 const requirePriorAuthentication = (req, res, next) => {
