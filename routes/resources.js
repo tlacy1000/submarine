@@ -1,5 +1,4 @@
 var express = require('express');
-var passport = require('passport');
 var router = express.Router();
 const {createResource, getAllResources, grabResourceById} = require('../models/resource');
 
@@ -15,10 +14,6 @@ router.get('/:id', async (req, res, next) => {
   const resource = await grabResourceById(id);
 
   res.send(resource);
-});
-
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.send('successfully logged in!');
 });
 
 const requirePriorAuthentication = (req, res, next) => {
