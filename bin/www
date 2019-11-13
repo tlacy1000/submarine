@@ -9,6 +9,13 @@ var debug = require('debug')('submarine:server');
 var http = require('http');
 
 /**
+ * Added manually: connect to MongoDB using mongoose.
+ */
+var connectToDatabase = require('../services/database').connectToDatabase;
+
+connectToDatabase();
+
+/**
  * Get port from environment and store in Express.
  */
 

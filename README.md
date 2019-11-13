@@ -7,12 +7,15 @@ It's a server
 ## How to run
 
 You'll need Node.js installed. You can download it at [nodejs.org](https://nodejs.org).
+You'll also need to have MongoDB installed and the Mongo daemon running. Download MongoDB at [mongodb.org](https://mongodb.org)
 
 ### Environment variables
 
 This repository requires certain environment variables to run. Create a `.env` file in the root directory with the following keys:
 
 ```
+MONGO_CONNECTION_STRING=mongodb://localhost:27017/submarine
+
 # Pick any string.
 SESSION_SECRET=
 ```
