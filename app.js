@@ -21,7 +21,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat' }));
+app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: false }));
 app.use(passport.initialize({userProperty: 'user'})); // req.user will contain the authenticated user object
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
