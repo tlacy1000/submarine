@@ -1,4 +1,5 @@
 var express = require('express');
+var passport = require('passport');
 var router = express.Router();
 
 const sampleData = [
@@ -18,13 +19,25 @@ router.get('/:id', (req, res, next) => {
   res.send(sampleData[id]);
 });
 
-router.post('/', (req, res) => {
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.send('successfully logged in!');
+  console.log(req.user);
+});
+
+const requirePriorAuthentication = (req, res, next) => {
+  if (req.user === undefined) {
+    next(new Error('This endpoint requires authentication. Please log in.'));
+  } else {
+    // req.user IS defined, so we can proceed normally
+    next();
+  }
+}
+
+router.post('/', requirePriorAuthentication, (req, res) => {
   const link = {
     url: req.body.url,
   };
-
-  console.log('User has successfully created the following link:', link);
-
+-
   sampleData.push(link);
 
   res.send(link);
