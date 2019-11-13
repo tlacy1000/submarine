@@ -1,22 +1,20 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
+const {createResource, getAllResources, grabResourceById} = require('../models/resource');
 
-const sampleData = [
-  {
-    url: 'https://mushroomreferences.com',
-  },
-];
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send(sampleData);
+/* GET resources listing. */
+router.get('/', async (req, res, next) => {
+  const resources = await getAllResources();
+  res.send(resources);
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const id = req.params.id; // get dynamic ID from the URL
 
-  res.send(sampleData[id]);
+  const resource = await grabResourceById(id);
+
+  res.send(resource);
 });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
@@ -32,14 +30,10 @@ const requirePriorAuthentication = (req, res, next) => {
   }
 }
 
-router.post('/', requirePriorAuthentication, (req, res) => {
-  const link = {
-    url: req.body.url,
-  };
--
-  sampleData.push(link);
+router.post('/', requirePriorAuthentication, async (req, res) => {
+  const resource = await createResource(req.body.url);
 
-  res.send(link);
+  res.send(resource);
 })
 
 module.exports = router;
