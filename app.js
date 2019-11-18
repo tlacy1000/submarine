@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
+var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
@@ -21,6 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: false }));
 app.use(passport.initialize({userProperty: 'user'})); // req.user will contain the authenticated user object
 app.use(passport.session());
